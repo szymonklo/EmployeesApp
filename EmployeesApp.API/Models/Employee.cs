@@ -19,7 +19,7 @@ namespace EmployeesApp.API.Models
         public virtual Employee PerformanceManager { get; set; }
         
         // just for start
-        [JsonIgnore]
+        // [JsonIgnore]
         public virtual ICollection<Employee> ManagedEmployees { get; set; }
     }
 }

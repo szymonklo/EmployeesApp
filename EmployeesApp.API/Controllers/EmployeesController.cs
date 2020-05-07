@@ -12,19 +12,17 @@ namespace DatingApp.API.Controllers
     [ApiController]
     public class EmployeesController : ControllerBase
     {
-        // TODO - implement controller (get form DB)
-        private readonly DataContext _context;
-        public EmployeesController(DataContext context)
+        private readonly IRepository _repo;
+        public EmployeesController(IRepository repo)
         {
-            _context = context;
-
+            _repo = repo;
         }
 
         // GET api/employees
         [HttpGet]
         public async Task<IActionResult> GetEmployees()
         {
-            var employees = await _context.Employees.ToListAsync();
+            var employees = await _repo.GetEmployees();
             
             return Ok(employees);
         }
@@ -33,7 +31,7 @@ namespace DatingApp.API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetEmployee(int id)
         {
-            var employee = await _context.Employees.FirstOrDefaultAsync(x => x.Id == id);
+            var employee = await _repo.GetEmployee(id);
             
             return Ok(employee);
         }
