@@ -3,7 +3,6 @@ import { environment } from 'src/environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Employee } from '../_models/employee';
-import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -21,11 +20,53 @@ export class EmployeeService {
 
   constructor(private http: HttpClient) { }
 
+  filterName(name: string) {
+    this.filterParams.name = name;
+    this.changeFilter();
+  }
+  filterStartDate(startDate: Date) {
+    this.filterParams.startDate = startDate;
+    this.changeFilter();
+  }
+  filterEndDate(endDate: Date) {
+    this.filterParams.endDate = endDate;
+    this.changeFilter();
+  }
+  filterManager(performanceManagerId: number) {
+    this.filterParams.performanceManagerId = performanceManagerId;
+    this.changeFilter();
+  }
+
   changeFilter() {
-    this.getEmployees().subscribe((employees: Employee[]) =>
-      this.employees.next(employees));
-    this.getManagers().subscribe((managers: Employee[]) =>
-      this.managers.next(managers));
+    console.log(this.filterParams.performanceManagerId);
+
+    this.getEmployees().subscribe((employees: Employee[]) => {
+      this.employees.next(employees);
+      if (employees.length > 0) {
+        this.getManagers().subscribe((managers: Employee[]) => {
+          this.managers.next(managers);
+        });
+      }
+    });
+  }
+
+  getEmployees(): Observable <Employee[]> {
+    const params = this.createParams();
+    return this.http.get<Employee[]>(this.baseUrl + 'employees', { params });
+  }
+
+  getManagers(): Observable <Employee[]> {
+    const pmID = this.filterParams.performanceManagerId;
+    this.filterParams.performanceManagerId = null;
+    const params = this.createParams();
+    this.filterParams.performanceManagerId = pmID;
+    return this.http.get<Employee[]>(this.baseUrl + 'employees/managers', { params });
+  }
+
+  searchEmployeeName(term: string): Observable <string[]> {
+    this.filterParams.name = null;
+    const params = this.createParams();
+    return this.http.get<string[]>(this.baseUrl + 'employees' + '/search/' + term, { params });
   }
 
   createParams() {
@@ -43,22 +84,5 @@ export class EmployeeService {
       params = params.append('performanceManagerId', this.filterParams.performanceManagerId);
     }
     return params;
-  }
-
-  getEmployees(): Observable<Employee[]> {
-    const params = this.createParams();
-    return this.http.get<Employee[]>(this.baseUrl + 'employees', { params });
-  }
-
-  getManagers(): Observable<Employee[]> {
-    this.filterParams.performanceManagerId = null;
-    const params = this.createParams();
-    return this.http.get<Employee[]>(this.baseUrl + 'employees/managers', { params });
-  }
-
-  searchEmployeeName(term: string): Observable<string[]> {
-    this.filterParams.name = null;
-    const params = this.createParams();
-    return this.http.get<string[]>(this.baseUrl + 'employees' + '/search/' + term, { params });
   }
 }

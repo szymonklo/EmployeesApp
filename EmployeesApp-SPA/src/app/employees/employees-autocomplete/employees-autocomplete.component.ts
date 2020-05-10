@@ -11,16 +11,15 @@ export class EmployeesAutocompleteComponent implements OnInit {
 
   keyword = 'name';
   names: string[] = [];
-  placeHolder = 'search employee';
+  placeHolder = 'Search employee';
 
   constructor(private employeeService: EmployeeService) { }
 
   ngOnInit() {
   }
 
-  selectEvent(item) {
-    this.employeeService.filterParams.name = item;
-    this.employeeService.changeFilter();
+  selectEvent(name: string) {
+    this.employeeService.filterName(name);
   }
 
   onChangeSearch(term: string) {
@@ -29,7 +28,6 @@ export class EmployeesAutocompleteComponent implements OnInit {
   }
 
   onInputCleared() {
-    this.employeeService.filterParams.name = null;
-    this.employeeService.changeFilter();
+    this.employeeService.filterName(null);
   }
 }

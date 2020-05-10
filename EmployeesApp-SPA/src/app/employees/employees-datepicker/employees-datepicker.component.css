@@ -1,0 +1,19 @@
+input {
+    width: 82px;
+    padding-top: 19px;
+    padding-bottom: 19px;
+    padding-left: 3px;
+    padding-right: 3px;
+    border-radius: 0px;
+}
+a {
+    margin: 4px;
+    margin-right: 0px;
+    cursor: pointer;
+    font-size: 25px;;
+    font-weight: 300;
+}
+div.row {
+    margin-left: 0px;
+    margin-right: 0px;
+}

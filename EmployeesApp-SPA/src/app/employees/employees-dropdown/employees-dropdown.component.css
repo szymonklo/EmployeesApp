@@ -1,0 +1,16 @@
+select {
+    padding-top: 9px;
+    padding-bottom: 9px;
+    padding-left: 3px;
+    padding-right: 3px;
+    color: grey;
+    font-size: 15px;
+    width: 90%;
+}
+a {
+    margin: 4px;
+    margin-right: 0px;
+    cursor: pointer;
+    font-size: 25px;;
+    font-weight: 300;
+}

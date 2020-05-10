@@ -1,4 +1,3 @@
-  .ng-autocomplete {
-    width:100%;
-    max-width: 500px;
-  }
+.ng-autocomplete {
+    width: 95%;
+}

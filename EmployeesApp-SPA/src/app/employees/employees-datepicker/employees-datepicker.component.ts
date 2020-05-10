@@ -22,9 +22,19 @@ export class EmployeesDatepickerComponent implements OnInit {
     };
   }
 
-  onValueChange(value: Date): void {
-    this.employeeService.filterParams.startDate = this.startDate;
-    this.employeeService.filterParams.endDate = this.endDate;
-    this.employeeService.changeFilter();
+  onStartDateChange(startDate: Date) {
+    this.employeeService.filterStartDate(startDate);
+  }
+
+  onEndDateChange(endDate: Date) {
+    this.employeeService.filterEndDate(endDate);
+  }
+
+  resetStartDate() {
+    this.startDate = undefined;
+  }
+
+  resetEndDate() {
+    this.endDate = undefined;
   }
 }

@@ -16,19 +16,21 @@ export class EmployeesDropdownComponent implements OnInit {
   constructor(private employeeService: EmployeeService) { }
 
   ngOnInit() {
-    // this.loadManagers();
     this.employeeService.currentManagers.subscribe((managers: Employee[]) =>
       this.managers = managers);
+    console.log('init');
   }
 
-  loadManagers() {
-    this.employeeService.getManagers().subscribe((managers: Employee[]) =>
-      this.managers = managers);
+  onManagerSelected(managerId: number) {
+    this.employeeService.filterManager(managerId);
+    console.log('selected');
+
   }
 
-  onManagerSelected(managerId) {
-    this.employeeService.filterParams.performanceManagerId = managerId;
-    this.employeeService.changeFilter();
-  }
+  resetManager() {
+    this.selectedManager = null;
+    this.employeeService.filterManager(null);
+    console.log('reset');
 
+  }
 }

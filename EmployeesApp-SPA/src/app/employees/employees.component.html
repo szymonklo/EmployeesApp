@@ -1,28 +1,30 @@
 <div class="container">
   <table class="table table-hover table-striped">
     <thead class="bg-info h5">
-      <tr>
-        <th style="width: 10%;">Id</th>
-        <th style="width: 25%;">
-          Name
+      <tr class="text-center">
+        <th style="width: 5%;" class="align-top">
+          <p>Id</p>
+        </th>
+        <th style="width: 25%;" class="align-top">
+          <p>Name</p>
           <app-employees-autocomplete></app-employees-autocomplete>
         </th>
-        <th style="width: 40%;">
-          Hire Date
+        <th style="width: 35%;" class="align-top">
+          <p>Hire Date</p>
           <app-employees-datepicker></app-employees-datepicker>
         </th>
-        <th style="width: 25%;">
-          Manager
+        <th style="width: 35%;" class="align-top">
+          <p>Manager</p>
           <app-employees-dropdown></app-employees-dropdown>
         </th>
       </tr>
     </thead>
     <tbody *ngFor="let employee of employees">
       <tr>
-        <th>{{employee.id}}</th>
-        <th>{{employee.name}}</th>
-        <th>{{employee.hireDate | date: 'dd/MM/yyyy'}}</th>
-        <th>{{employee.performanceManagerName}}</th>
+        <td>{{employee.id}}</td>
+        <td>{{employee.name}}</td>
+        <td>{{employee.hireDate | date: 'dd/MM/yyyy'}}</td>
+        <td>{{employee.performanceManagerName}}</td>
       </tr>
     </tbody>
   </table>

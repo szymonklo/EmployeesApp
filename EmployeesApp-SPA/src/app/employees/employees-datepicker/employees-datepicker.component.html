@@ -1,6 +1,6 @@
 <form>
   <div class="row input-group">
-    <div class="col-xs-12 col-6 col-md-6 form-group">
+    <div class="form-group">
       <input type="text"
             placeholder="From"
             class="form-control"
@@ -8,11 +8,13 @@
             name="startDate"
             [bsConfig]="bsConfig"
             [(ngModel)]="startDate"
-            (bsValueChange)="onValueChange($event)"
+            (bsValueChange)="onStartDateChange($event)"
             [maxDate]="endDate">
     </div>
 
-    <div class="col-xs-12 col-6 col-md-6 form-group">
+    <a (click)="resetStartDate()">x</a>
+
+    <div class="form-group ml-3">
       <input type="text"
             placeholder="To"
             class="form-control"
@@ -20,8 +22,11 @@
             name="endDate"
             [bsConfig]="bsConfig"
             [(ngModel)]="endDate"
-            (bsValueChange)="onValueChange($event)"
+            (bsValueChange)="onEndDateChange($event)"
             [minDate]="startDate">
     </div>
+
+    <a (click)="resetEndDate()">x</a>
+
   </div>
 </form>
