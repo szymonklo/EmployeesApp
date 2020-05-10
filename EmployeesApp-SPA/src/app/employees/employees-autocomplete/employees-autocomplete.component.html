@@ -1,0 +1,22 @@
+<form #form="ngForm">
+    <div class="ng-autocomplete">
+      <ng-autocomplete 
+        [data]="names"
+        [searchKeyword]="keyword"
+        [placeHolder]="placeHolder"
+        (selected)='selectEvent($event)'
+        (inputChanged)='onChangeSearch($event)'
+        (inputCleared)='onInputCleared()'
+        [itemTemplate]="itemTemplate"
+        [notFoundTemplate]="notFoundTemplate">                                 
+      </ng-autocomplete>
+      
+      <ng-template #itemTemplate let-item>
+        <a [innerHTML]="item"></a>
+      </ng-template>
+      
+      <ng-template #notFoundTemplate let-notFound>
+        <div [innerHTML]="notFound"></div>
+      </ng-template>
+    </div>
+</form>

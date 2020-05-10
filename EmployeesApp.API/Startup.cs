@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using EmployeesApp.API.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -35,6 +36,7 @@ namespace EmployeesApp.API
             });
             services.AddControllers();
             services.AddCors();
+            services.AddAutoMapper(typeof(Repository).Assembly);
             services.AddScoped<IRepository, Repository>();
         }
 

@@ -1,0 +1,4 @@
+<select #rate ngModel="hr" [(ngModel)]="selectedManager" (ngModelChange)="onManagerSelected($event)">
+  <option [ngValue]="null" style="color: grey"> - Choose a manager - </option>
+  <option *ngFor="let manager of managers" [ngValue]="manager.id" >{{manager.id}} {{manager.name}}</option>
+</select>

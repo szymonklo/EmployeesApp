@@ -2,7 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using EmployeesApp.API.Data;
+using EmployeesApp.API.Dtos;
+using EmployeesApp.API.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,45 +16,40 @@ namespace DatingApp.API.Controllers
     public class EmployeesController : ControllerBase
     {
         private readonly IRepository _repo;
-        public EmployeesController(IRepository repo)
+        private readonly IMapper _mapper;
+
+        public EmployeesController(IRepository repo, IMapper mapper)
         {
             _repo = repo;
+            _mapper = mapper;
         }
 
-        // GET api/employees
+        [HttpGet("managers")]
+        public async Task<IActionResult> GetManagers([FromQuery] FilterParams filterParams)
+        {
+            var managers = await _repo.GetManagers(filterParams);
+
+            var managersToReturn = _mapper.Map<IEnumerable<ManagerForDropdownDto>>(managers);
+
+            return Ok(managersToReturn);
+        }
+
+        [HttpGet("search/{term}")]
+        public async Task<IActionResult> GetEmployeesNames(string term, [FromQuery] FilterParams filterParams)
+        {
+            var employeesNames = await _repo.GetEmployeesNames(term, filterParams);
+
+            return Ok(employeesNames);
+        }
+
         [HttpGet]
-        public async Task<IActionResult> GetEmployees()
+        public async Task<IActionResult> GetEmloyees([FromQuery] FilterParams filterParams)
         {
-            var employees = await _repo.GetEmployees();
+            var employees = await _repo.GetEmployees(filterParams);
             
-            return Ok(employees);
-        }
+            var employeesToReturn = _mapper.Map<IEnumerable<EmployeeForListDto>>(employees);
 
-        // GET api/employees/5
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetEmployee(int id)
-        {
-            var employee = await _repo.GetEmployee(id);
-            
-            return Ok(employee);
-        }
-
-        // POST api/employees
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/employees/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/employees/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            return Ok(employeesToReturn);
         }
     }
 }

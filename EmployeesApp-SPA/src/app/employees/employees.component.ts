@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { EmployeeService } from '../_services/employee.service';
+import { Employee } from '../_models/employee';
 
 @Component({
   selector: 'app-employees',
@@ -7,19 +8,12 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./employees.component.css']
 })
 export class EmployeesComponent implements OnInit {
-  employees: any;
+  employees: Employee[] = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(private employeeService: EmployeeService) { }
 
   ngOnInit() {
-    this.getEmployees();
-  }
-
-  getEmployees() {
-    this.http.get('http://localhost:5000/api/employees').subscribe(response => {
-      this.employees = response;
-    }, error => {
-      console.log(error);
-    });
+    this.employeeService.currentEmployees.subscribe((employees: Employee[]) =>
+      this.employees = employees);
   }
 }

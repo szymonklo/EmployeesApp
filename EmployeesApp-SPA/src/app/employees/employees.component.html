@@ -1,3 +1,30 @@
-<p *ngFor="let employee of employees">
-  {{employee.id}}, {{employee.name}}, {{employee.hireDate}}, {{employee.performanceManagerId}}
-</p>
+<div class="container">
+  <table class="table table-hover table-striped">
+    <thead class="bg-info h5">
+      <tr>
+        <th style="width: 10%;">Id</th>
+        <th style="width: 25%;">
+          Name
+          <app-employees-autocomplete></app-employees-autocomplete>
+        </th>
+        <th style="width: 40%;">
+          Hire Date
+          <app-employees-datepicker></app-employees-datepicker>
+        </th>
+        <th style="width: 25%;">
+          Manager
+          <app-employees-dropdown></app-employees-dropdown>
+        </th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let employee of employees">
+      <tr>
+        <th>{{employee.id}}</th>
+        <th>{{employee.name}}</th>
+        <th>{{employee.hireDate | date: 'dd/MM/yyyy'}}</th>
+        <th>{{employee.performanceManagerName}}</th>
+      </tr>
+    </tbody>
+  </table>
+</div>
+

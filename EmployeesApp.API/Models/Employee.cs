@@ -17,9 +17,6 @@ namespace EmployeesApp.API.Models
         public DateTime HireDate { get; set; }
         public int? PerformanceManagerId { get; set; }
         public virtual Employee PerformanceManager { get; set; }
-        
-        // just for start
-        // [JsonIgnore]
         public virtual ICollection<Employee> ManagedEmployees { get; set; }
     }
 }
